@@ -1,0 +1,85 @@
+#include<stdio.h>
+#include<malloc.h>
+#include<string.h>
+#define M 20
+#define  elemtype  char
+typedef struct
+{
+    elemtype stack[M];
+    int top;
+}
+stacknode;
+void init(stacknode *st);
+void push(stacknode *st,elemtype x);
+void pop(stacknode *st);
+
+void init(stacknode *st)
+{
+    st->top=0;
+}
+
+void push(stacknode *st,elemtype x)
+{
+    if(st->top==M)
+        printf("the stack is overflow!\n");
+    else
+    {
+        st->top=st->top+1;
+        st->stack[st->top]=x;
+    }
+}
+
+void pop(stacknode *st)
+{
+	if(st->top>0) 
+	    st->top--;
+    else  
+		printf("Stack is Empty!\n");
+}
+
+int main()
+{
+    char s[M];
+    int i,a,b=0;
+    stacknode *sp;
+	printf("                                           程序分析题\n");
+	printf("                   1.输入数据\n");
+	printf("                   2.程序基本功能分析\n");
+	printf("                   3.结束程序\n");
+	printf("                   注释：按（1-3）选择功能\n");
+	printf("                   请分两次运行功能1并分别输入：2+((c-d)*6-(f-7)*a)/6   a-((c-d)*6-(s/3-x)/2\n");
+	while(1)
+	{
+	scanf("%d",&a);
+	if(a==1)
+	{
+		getchar();
+		printf("create a empty stack!\n");
+		sp=malloc(sizeof(stacknode));
+		init(sp);
+		printf("input a expression:\n");
+		gets(s);
+		for(i=0;i<strlen(s);i++)
+		{
+			if(s[i]=='(')
+				push(sp,s[i]);
+			if(s[i]==')')
+				pop(sp);
+		}
+		if(sp->top==0)
+		{
+			printf("'('match')'!\n");
+			printf("请选择下一个功能\n");
+		}
+		else
+		{
+			printf("'('not match')'!\n");
+			printf("请选择下一个功能\n");
+		}
+	}
+	if(a==2)
+		printf(" 程序的基本功能：根据两次结果可知该程序是判断公式结构搭配是否正确，正确输出'('match')'!，错误输出'('not match')'!；如：输入的第二个数据缺少括号\n");
+	if(a==3)
+		return 0;
+	}
+}
